@@ -43,7 +43,7 @@ namespace Import_Excel_SqlDB_MVC.Controllers
                     Directory.CreateDirectory(path);
                 }
                 string extension = Path.GetExtension(postedFile.FileName);
-                filePath = path + DateTime.Now.ToString("MMM-dd-yyyy-HH-mm-ss") + "_" + Path.GetFileName(postedFile.FileName);
+                filePath = path + DateTime.Now.ToString("MMM-d-yyyy-hh-mm-ss") + "_" + Path.GetFileName(postedFile.FileName);
                 postedFile.SaveAs(filePath);
 
                 // check file extension
@@ -125,6 +125,12 @@ namespace Import_Excel_SqlDB_MVC.Controllers
                                     cmdExcel.CommandText = "SELECT * FROM [" + sheetName + "$]";
                                     odaExcel.SelectCommand = cmdExcel;
                                     odaExcel.Fill(dtExcelSheet);
+
+                                    // add time stamp column to datatable sheet to insert into database ImportedDateTime column
+                                    DataColumn sheetDateTimeStamp = new DataColumn("ImportedDateTime", typeof(System.DateTime));
+                                    sheetDateTimeStamp.DefaultValue = DateTime.Now;
+                                    dtExcelSheet.Columns.Add(sheetDateTimeStamp);
+                                    
                                     dtExcelDataList.Add(dtExcelSheet);
                                     dtExcelSheet.Dispose();
                                 }
