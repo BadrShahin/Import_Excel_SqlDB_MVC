@@ -14,6 +14,13 @@ namespace Import_Excel_SqlDB_MVC.Controllers
 {
     public class HomeController : Controller
     {
+        /// <summary>
+        /// Author: Badr Shahin 
+        /// Created: 18 / 9 / 2019
+        /// Description: Read Excel File And Upload It Server Then Insert it Into SQLServer Database.
+        /// </summary>
+        /// <param name="postedFile"></param>
+        /// <returns></returns>
         // declare table name 
         string destinationTableName = string.Empty;
         // GET: Home
@@ -21,7 +28,7 @@ namespace Import_Excel_SqlDB_MVC.Controllers
         {
             return View();
         }
-
+        
         [HttpPost]
         public ActionResult Index(HttpPostedFileBase postedFile)
         {
